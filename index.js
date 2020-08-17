@@ -26,13 +26,13 @@ app.post('/recievecallback', async (req, res) => {
     	.then(response=>{
     		console.log('Incoming response : ', response.body);
     		if (response.statusCode != 200) {
-    			res.send(response.statusCode,{
+    			res.status(response.statusCode).json({
 	    			responsecode:response.statusCode,
 	    			message: response.body,
 	    			status:false
 	    		})
     		}else{
-	    		res.send(response.statusCode,{
+	    		res.status(response.statusCode).json({
 	    			responsecode:response.statusCode,
 	    			message: response.body,
 	    			status:true
@@ -41,7 +41,7 @@ app.post('/recievecallback', async (req, res) => {
     	})
     	.catch(err=>{
     		console.log('Error : ', err);
-    		res.send(500,{
+    		res.status(500).json({
     			responsecode:500,
     			message:'service error',
     			err,
