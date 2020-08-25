@@ -33,14 +33,14 @@ app.post('/recievecallback', async (req, res) => {
     		if (response.statusCode != 200) {
     			fs.appendFileSync("./logs/error.log",JSON.stringify({...response.body,timestamp:new Date().toLocaleString()}));
     			res.status(response.statusCode).json({
-	    			responsecode:response.statusCode,
+	    			responseCode:response.statusCode,
 	    			message: response.body,
 	    			status:false
 	    		})
     		}else{
     			fs.appendFileSync("./logs/response.log",JSON.stringify({...response.body,timestamp:new Date().toLocaleString()}));
 	    		res.status(response.statusCode).json({
-	    			responsecode:response.statusCode,
+	    			responseCode:response.statusCode,
 	    			message: response.body,
 	    			status:true
 	    		})
@@ -50,7 +50,7 @@ app.post('/recievecallback', async (req, res) => {
     		console.log('Error : ', err);
     		fs.appendFileSync("./logs/error.log",JSON.stringify({err,timestamp:new Date().toLocaleString()}));
     		res.status(500).json({
-    			responsecode:500,
+    			responseCode:500,
     			message:'service error',
     			err,
     			status:false
