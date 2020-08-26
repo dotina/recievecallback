@@ -36,7 +36,7 @@ app.post('/recievecallback', async (req, res) => {
 	    			responseCode:response.statusCode,
 	    			message: response.body,
 	    			status:false
-	    		})
+	    		}).end()
     		}else{
     			fs.appendFileSync("./logs/response.log",JSON.stringify({...response.body,timestamp:new Date().toLocaleString()}));
 	    		res.status(response.statusCode).json({
