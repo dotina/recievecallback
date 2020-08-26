@@ -1,8 +1,12 @@
 const axios = require('axios').default
+const https = require('https');
+const http = require('http'); 
 const get = (endpointURL, bearer_token = null, basic_token = null) => requestWithAxios('GET', endpointURL, null, {}, bearer_token, basic_token)
 const post = (endpointURL, params, headers = {}, bearer_token = null, basic_token = null) => requestWithAxios('POST', endpointURL, params, headers, bearer_token, basic_token)
 const requestWithAxios = (method, url, params, headers, bearer_token, basic_token) => new Promise((resolve, reject) => {
     const options = {
+        httpsAgent: new https.Agent({ keepAlive: true }),
+        httpAgent: new http.Agent({ keepAlive: true }),
         method,
         url,
         headers: {
