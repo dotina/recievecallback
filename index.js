@@ -1,10 +1,10 @@
 const fs = require('fs');
-const {get,post} = require('./netUtils');
 const express = require('express')
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 const port = 3300;
+const {get,post} = require('./netUtils');
 
 app.use(cors());
 // Configuring body parser middleware
