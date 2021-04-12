@@ -34,14 +34,14 @@ app.post('/recievecallback', async(req, res) => {
                 console.log('Incoming response : ', response.body);
 
                 if (response.statusCode != 200) {
-                    fs.appendFileSync(__dirname + "/logs/errorLogs.log", `${timestamp} | ${response.body} \n`)
+                    fs.appendFileSync(__dirname + "/logs/errorLogs.log", `${timestamp} | ${JSON.stringify(response.body)} \n`)
                     res.status(response.statusCode).json({
                         responseCode: response.statusCode,
                         message: response.body,
                         status: false
                     })
                 } else {
-                    fs.appendFileSync(__dirname + "/logs/successLogs.log", `${timestamp} | ${response.body} \n`)
+                    fs.appendFileSync(__dirname + "/logs/successLogs.log", `${timestamp} | ${JSON.stringify(response.body)} \n`)
                     res.status(response.statusCode).json({
                         responseCode: response.statusCode,
                         message: response.body,
