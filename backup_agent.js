@@ -18,7 +18,7 @@ const getDateFormated = (date, type) => {
     }
 }
 
-const backup_task = cron.schedule('* */3 * * *', () => {
+const backup_task = cron.schedule('0 0-23/3 * * *', () => {
     console.log('running backup tasks every 3 hours');
     const timestamp = getDateFormated(new Date(), 'DATETIME').replace(/[\/ :]/gi, '_');
     if (!fs.existsSync(`${__dirname}/logs/backup`)) fs.mkdirSync(`${__dirname}/logs/backup`)
