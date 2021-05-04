@@ -9,8 +9,9 @@ axiosInstance.interceptors.response.use(AxiosLogger.responseLogger, AxiosLogger.
 
 const requestWithAxios = (method, url, params, headers, bearer_token, basic_token) => new Promise((resolve, reject) => {
     const options = {
-        httpsAgent: new https.Agent({ keepAlive: true }),
-        httpAgent: new http.Agent({ keepAlive: true }),
+        // httpsAgent: new https.Agent({ keepAlive: true }),
+        // httpAgent: new http.Agent({ keepAlive: true }),
+        proxy: false,
         method,
         url,
         headers: {
