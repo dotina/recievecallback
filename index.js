@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 const port = 3300;
-const {get, post } = require('./netUtils');
+const { GET, POST } = require('./netUtils');
 const { backup_task, getDateFormated } = require('./backup_agent')
 
 
@@ -20,28 +20,28 @@ app.post('/recievecallback', async(req, res) => {
     const keyEndpoint = 'key-endpoint' in headers ? headers['key-endpoint'] : null;
 
     if (!body) {
-        fs.appendFileSync(__dirname + "/logs/errorLogs.log", `${timestamp} | include a valid body \n`)
+        // fs.appendFileSync(__dirname + "/logs/errorLogs.log", `${timestamp} | include a valid body \n`)
         res.status(400).json({ responseCode: 400, status: false, message: 'include a valid body' });
     } else if (!headers) {
-        fs.appendFileSync(__dirname + "/logs/errorLogs.log", `${timestamp} | include a valid headers \n`)
+        // fs.appendFileSync(__dirname + "/logs/errorLogs.log", `${timestamp} | include a valid headers \n`)
         res.status(400).json({ responseCode: 400, status: false, message: 'include a valid headers' });
     } else if (!keyEndpoint) {
-        fs.appendFileSync(__dirname + "/logs/errorLogs.log", `${timestamp} | missing destination endpoint in headers | check DB \n`)
+        // fs.appendFileSync(__dirname + "/logs/errorLogs.log", `${timestamp} | missing destination endpoint in headers | check DB \n`)
         res.status(400).json({ responseCode: 400, status: false, message: 'missing destination endpoint in headers | check DB' });
     } else {
-        post(keyEndpoint, body, {}, null, null)
+        POST(keyEndpoint, body, {}, null, null)
             .then(response => {
-                console.log('Incoming response : ', response.body);
+                // console.log('Incoming response : ', response.body);
 
                 if (response.statusCode != 200) {
-                    fs.appendFileSync(__dirname + "/logs/errorLogs.log", `${timestamp} | ${JSON.stringify(response.body)} \n`)
+                    // fs.appendFileSync(__dirname + "/logs/errorLogs.log", `${timestamp} | ${JSON.stringify(response.body)} \n`)
                     res.status(response.statusCode).json({
                         responseCode: response.statusCode,
                         message: response.body,
                         status: false
                     })
                 } else {
-                    fs.appendFileSync(__dirname + "/logs/successLogs.log", `${timestamp} | ${JSON.stringify(response.body)} \n`)
+                    // fs.appendFileSync(__dirname + "/logs/successLogs.log", `${timestamp} | ${JSON.stringify(response.body)} \n`)
                     res.status(response.statusCode).json({
                         responseCode: response.statusCode,
                         message: response.body,
@@ -50,8 +50,8 @@ app.post('/recievecallback', async(req, res) => {
                 }
             })
             .catch(err => {
-                console.log('Error : ', err);
-                fs.appendFileSync(__dirname + "/logs/errorLogs.log", `${timestamp} | ${err}\n`)
+                // console.log('Error : ', err);
+                // fs.appendFileSync(__dirname + "/logs/errorLogs.log", `${timestamp} | ${err}\n`)
                 res.status(500).json({
                     responseCode: 500,
                     message: 'service error',
