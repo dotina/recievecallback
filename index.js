@@ -41,7 +41,8 @@ app.post('/recievecallback', async(req, res) => {
                         status: false
                     })
                 } else {
-                    // fs.appendFileSync(__dirname + "/logs/successLogs.log", `${timestamp} | ${JSON.stringify(response.body)} \n`)
+                    console.log('Response Outside Axios: ', response.body)
+                        // fs.appendFileSync(__dirname + "/logs/successLogs.log", `${timestamp} | ${JSON.stringify(response.body)} \n`)
                     res.status(response.statusCode).json({
                         responseCode: response.statusCode,
                         message: response.body,
@@ -50,7 +51,7 @@ app.post('/recievecallback', async(req, res) => {
                 }
             })
             .catch(err => {
-                // console.log('Error : ', err);
+                console.log('Error : ', err);
                 // fs.appendFileSync(__dirname + "/logs/errorLogs.log", `${timestamp} | ${err}\n`)
                 res.status(500).json({
                     responseCode: 500,
